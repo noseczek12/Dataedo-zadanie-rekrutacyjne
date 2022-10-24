@@ -11,13 +11,14 @@ class Users
                     && $user['email']
                     && $user['password']
                     && strlen($user['name']) >= 10
-                )
+                ) {
                     DB::table('users')->where('id', $user['id'])->update(
                         ['name' => $user['name'],
-                        'login' => $user['login'],
-                        'email' => $user['email'],
-                        'password' => md5($user['password'])]
+                            'login' => $user['login'],
+                            'email' => $user['email'],
+                            'password' => md5($user['password'])]
                     );
+                }
             } catch (\Throwable $e) {
                 return Redirect::back()->withErrors(['error', ['We couldn\'t update user: ' . $e->getMessage()]]);
             }
@@ -34,12 +35,14 @@ class Users
                     && $user['email']
                     && $user['password']
                     && strlen($user['name']) >= 10
-                ) DB::table('users')->insert(
-                    ['name' => $user['name'],
-                        'login' => $user['login'],
-                        'email' => $user['email'],
-                        'password' => md5($user['password'])]
-                );
+                ) {
+                    DB::table('users')->insert(
+                        ['name' => $user['name'],
+                            'login' => $user['login'],
+                            'email' => $user['email'],
+                            'password' => md5($user['password'])]
+                    );
+                }
             } catch (\Throwable $e) {
                 return Redirect::back()->withErrors(['error', ['We couldn\'t store user: ' . $e->getMessage()]]);
             }
